@@ -1,4 +1,3 @@
-// frontend/components/Signup.js
 import React, { useState } from 'react';
 
 const Signup = () => {
@@ -39,7 +38,7 @@ const Signup = () => {
       return;
     }
 
-    // Send signup request to the backend (using fetch or axios)
+    // Send signup request to the backend
     const response = await fetch('/api/auth/signup', {
       method: 'POST',
       headers: {
@@ -53,7 +52,6 @@ const Signup = () => {
       setErrors({ general: data.error });
     } else {
       alert('Signup successful! Redirecting to login...');
-      // Redirect to login page after success
       setTimeout(() => {
         window.location.href = '/login';
       }, 2000);
@@ -67,45 +65,106 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <h2>Signup</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div style={containerStyle}>
+      <h2 style={headingStyle}>Signup</h2>
+      <form onSubmit={handleSubmit} style={formStyle}>
+        <div style={inputGroupStyle}>
           <input
             type="text"
             name="username"
             value={formData.username}
             onChange={handleChange}
             placeholder="Username"
+            style={inputStyle}
           />
-          {errors.username && <span>{errors.username}</span>}
+          {errors.username && <span style={errorStyle}>{errors.username}</span>}
         </div>
-        <div>
+        <div style={inputGroupStyle}>
           <input
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             placeholder="Password"
+            style={inputStyle}
           />
-          {errors.password && <span>{errors.password}</span>}
+          {errors.password && <span style={errorStyle}>{errors.password}</span>}
         </div>
-        <div>
+        <div style={inputGroupStyle}>
           <input
             type="password"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
             placeholder="Confirm Password"
+            style={inputStyle}
           />
-          {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
+          {errors.confirmPassword && <span style={errorStyle}>{errors.confirmPassword}</span>}
         </div>
-        {passwordStrength && <div>Password Strength: {passwordStrength}</div>}
-        <button type="submit">Sign Up</button>
-        {errors.general && <div>{errors.general}</div>}
+        {passwordStrength && <div style={strengthStyle}>Password Strength: {passwordStrength}</div>}
+        <button type="submit" style={buttonStyle}>Sign Up</button>
+        {errors.general && <div style={errorStyle}>{errors.general}</div>}
       </form>
     </div>
   );
+};
+
+// Inline CSS Styles
+const containerStyle = {
+  maxWidth: '400px',
+  margin: '50px auto',
+  padding: '20px',
+  border: '1px solid #ccc',
+  borderRadius: '8px',
+  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+  fontFamily: 'Arial, sans-serif',
+  backgroundColor: '#f9f9f9',
+};
+
+const headingStyle = {
+  textAlign: 'center',
+  marginBottom: '20px',
+  color: '#333',
+};
+
+const formStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const inputGroupStyle = {
+  marginBottom: '15px',
+};
+
+const inputStyle = {
+  width: '100%',
+  padding: '10px',
+  borderRadius: '5px',
+  border: '1px solid #ccc',
+};
+
+const buttonStyle = {
+  width: '100%',
+  padding: '10px',
+  backgroundColor: '#333',
+  color: 'white',
+  border: 'none',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  fontSize: '16px',
+};
+
+const errorStyle = {
+  color: 'red',
+  fontSize: '14px',
+  marginTop: '5px',
+  display: 'block',
+};
+
+const strengthStyle = {
+  textAlign: 'center',
+  marginBottom: '10px',
+  fontWeight: 'bold',
 };
 
 export default Signup;
